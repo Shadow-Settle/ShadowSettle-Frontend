@@ -1,0 +1,16 @@
+@import './fonts.css';
+@import './tailwind.css';
+@import './theme.css';
+
+/* Pointer cursor for all clickable elements */
+button,
+a[href],
+[role="button"],
+input[type="submit"],
+input[type="button"],
+input[type="reset"],
+select,
+label[for],
+summary {
+  cursor: pointer;
+}
