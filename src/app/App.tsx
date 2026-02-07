@@ -29,19 +29,19 @@ import {
 
 type PageType = 'landing' | 'overview' | 'create' | 'create-pool' | 'jobs' | 'profile' | 'status' | 'results' | 'trust';
 
-const PAGE_TO_HASH: Record<PageType, string> = {
-  landing: '#/',
-  overview: '#/overview',
-  create: '#/create',
-  'create-pool': '#/create-pool',
-  jobs: '#/jobs',
-  profile: '#/profile',
-  status: '#/status',
-  results: '#/results',
-  trust: '#/trust',
+const PAGE_TO_PATH: Record<PageType, string> = {
+  landing: '/',
+  overview: '/overview',
+  create: '/create',
+  'create-pool': '/create-pool',
+  jobs: '/jobs',
+  profile: '/profile',
+  status: '/status',
+  results: '/results',
+  trust: '/trust',
 };
 
-const HASH_TO_PAGE: Record<string, PageType> = {
+const PATH_TO_PAGE: Record<string, PageType> = {
   '': 'landing',
   '/': 'landing',
   '/overview': 'overview',
@@ -54,9 +54,10 @@ const HASH_TO_PAGE: Record<string, PageType> = {
   '/trust': 'trust',
 };
 
-function getPageFromHash(): PageType {
-  const hash = window.location.hash.slice(1).toLowerCase() || '/';
-  return HASH_TO_PAGE[hash] ?? 'landing';
+function getPageFromPath(): PageType {
+  const path = window.location.pathname.replace(/\/$/, '') || '/';
+  const normalized = path.toLowerCase();
+  return PATH_TO_PAGE[normalized] ?? 'landing';
 }
 
 export type SettlementRunState = {
@@ -76,13 +77,14 @@ export type SettlementRunState = {
 };
 
 export default function App() {
-  const [currentPage, setCurrentPageState] = useState<PageType>(() => getPageFromHash());
+  const [currentPage, setCurrentPageState] = useState<PageType>(() => getPageFromPath());
 
   const setCurrentPage = (page: PageType) => {
     setCurrentPageState(page);
-    const hash = PAGE_TO_HASH[page];
-    if (window.location.hash !== hash) {
-      window.history.replaceState(null, '', hash || '#/');
+    const path = PAGE_TO_PATH[page];
+    const fullPath = path || '/';
+    if (window.location.pathname !== fullPath) {
+      window.history.replaceState(null, '', fullPath);
     }
   };
   const [showWalletModal, setShowWalletModal] = useState(false);
@@ -254,18 +256,19 @@ export default function App() {
     }
   }, [settlementRun?.taskId, settlementRun?.result, settlementRun?.error, settlementRun?.dealId, settlementRun?.settlementName, settlementRun?.status, settlementRun?.datasetUrlOverride, settlementRun?.submittedAt, walletAddress]);
 
-  // Sync route from browser hash (back/forward, direct link)
+  // Sync route to URL (back/forward, direct link)
   useEffect(() => {
-    const hash = PAGE_TO_HASH[currentPage];
-    if (window.location.hash !== hash) {
-      window.history.replaceState(null, '', hash || '#/');
+    const path = PAGE_TO_PATH[currentPage];
+    const fullPath = path || '/';
+    if (window.location.pathname !== fullPath) {
+      window.history.replaceState(null, '', fullPath);
     }
   }, [currentPage]);
 
   useEffect(() => {
-    const onHashChange = () => setCurrentPageState(getPageFromHash());
-    window.addEventListener('hashchange', onHashChange);
-    return () => window.removeEventListener('hashchange', onHashChange);
+    const onPopState = () => setCurrentPageState(getPageFromPath());
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
   }, []);
 
   // Restore wallet session on mount (persists until tab close)
