@@ -126,7 +126,9 @@ export function LandingPage({ onLaunchApp }: LandingPageProps) {
                 <ArrowRight className="w-5 h-5" />
               </button>
               <a
-                href="#architecture"
+                href="https://www.youtube.com/watch?v=cntouSXYdew"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="px-8 py-4 rounded-lg border-2 border-border text-lg font-medium text-foreground hover:bg-accent/5 transition-all flex items-center gap-2"
               >
                 <Play className="w-5 h-5" />
@@ -384,7 +386,7 @@ export function LandingPage({ onLaunchApp }: LandingPageProps) {
                 <FileText className="w-4 h-4" />
                 Documentation
               </a>
-              <a href="#" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <a href="https://www.youtube.com/watch?v=cntouSXYdew" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                 <Play className="w-4 h-4" />
                 Demo Video
               </a>

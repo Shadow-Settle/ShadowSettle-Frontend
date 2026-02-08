@@ -22,7 +22,9 @@ export function AppFooter() {
               Documentation
             </a>
             <a
-              href="#"
+              href="https://www.youtube.com/watch?v=cntouSXYdew"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <Video className="w-4 h-4" />
