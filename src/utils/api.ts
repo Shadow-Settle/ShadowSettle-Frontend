@@ -184,6 +184,8 @@ export async function updateJobByTaskId(
 
 export type DashboardStats = {
   totalFundsDeposited: string;
+  /** Numeric value for display (avoids NaN when formatting). Use this for $ display. */
+  totalFundsDepositedNum?: number;
   activePools: number;
   jobsRunning: number;
   settlementsCompleted: number;

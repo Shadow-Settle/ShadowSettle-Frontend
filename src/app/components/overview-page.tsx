@@ -85,9 +85,11 @@ export function OverviewPage({
   const healthCheckedAt = health?.checkedAt ?? null;
 
   const totalFunds =
-    stats?.totalFundsDeposited != null
-      ? `$${Number(stats.totalFundsDeposited).toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`
-      : '—';
+    typeof stats?.totalFundsDepositedNum === 'number'
+      ? `$${stats.totalFundsDepositedNum.toLocaleString(undefined, { minimumFractionDigits: 0, maximumFractionDigits: 2 })}`
+      : stats?.totalFundsDeposited != null && stats.totalFundsDeposited !== ''
+        ? `$${stats.totalFundsDeposited}`
+        : '—';
   const activePools = stats?.activePools ?? 0;
   const jobsRunning = stats?.jobsRunning ?? 0;
   const settlementsCompleted = stats?.settlementsCompleted ?? 0;
