@@ -73,7 +73,7 @@ export function LandingPage({ onLaunchApp }: LandingPageProps) {
             <a href="#use-cases" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Use Cases
             </a>
-            <a href="#" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
+            <a href="/trust" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
               Docs
             </a>
             <button
@@ -378,11 +378,11 @@ export function LandingPage({ onLaunchApp }: LandingPageProps) {
 
             {/* Center: Links */}
             <div className="flex items-center gap-6">
-              <a href="#" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <a href="https://github.com/Shadow-Settle" target="_blank" rel="noopener noreferrer" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                 <Github className="w-4 h-4" />
                 GitHub
               </a>
-              <a href="#" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
+              <a href="/trust" className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors">
                 <FileText className="w-4 h-4" />
                 Documentation
               </a>

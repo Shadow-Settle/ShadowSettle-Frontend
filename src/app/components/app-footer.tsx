@@ -8,14 +8,16 @@ export function AppFooter() {
           {/* Left: Links */}
           <div className="flex items-center gap-6">
             <a
-              href="#"
+              href="https://github.com/Shadow-Settle"
+              target="_blank"
+              rel="noopener noreferrer"
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <Github className="w-4 h-4" />
               GitHub
             </a>
             <a
-              href="#"
+              href="/trust"
               className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground transition-colors"
             >
               <FileText className="w-4 h-4" />
