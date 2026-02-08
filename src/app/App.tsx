@@ -1,3 +1,7 @@
+/**
+ * ShadowSettle — main app shell.
+ * Routing, wallet state, job/settlement state, pre-fetch, and page layout.
+ */
 import { AppHeader } from './components/app-header';
 import { AppFooter } from './components/app-footer';
 import { LandingPage } from './components/landing-page';

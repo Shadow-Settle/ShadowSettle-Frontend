@@ -240,44 +240,27 @@ export function ProfilePage({
     setDepositError(null);
     setDepositLoading(true);
     try {
-      console.debug('[Deposit] Using settlement=', config.settlementAddress, 'token=', config.tokenAddress, 'amount=', amount, 'USDC');
       const provider = new BrowserProvider((window as any).ethereum);
       const signer = await provider.getSigner();
-      console.debug('[Deposit] Signer obtained, address=', await signer.getAddress());
       const token = new Contract(config.tokenAddress, ERC20_ABI, signer);
       const settlement = new Contract(config.settlementAddress, SETTLEMENT_ABI, signer);
       const amountWei = BigInt(Math.floor(amount * 10 ** USDC_DECIMALS));
 
       const allowance = await token.allowance(walletAddress, config.settlementAddress);
-      console.debug('[Deposit] Allowance=', allowance.toString(), 'need=', amountWei.toString());
       if (allowance < amountWei) {
         if (allowance > 0n) {
-          console.debug('[Deposit] Resetting allowance to 0...');
           const txReset = await token.approve(config.settlementAddress, 0n);
           await txReset.wait();
-          console.debug('[Deposit] Reset tx confirmed');
         }
-        console.debug('[Deposit] Approving amount=', amountWei.toString());
         const txApprove = await token.approve(config.settlementAddress, amountWei);
         await txApprove.wait();
-        console.debug('[Deposit] Approve tx confirmed');
       }
-      console.debug('[Deposit] Calling settlement.deposit(', amountWei.toString(), ')...');
       const txDeposit = await settlement.deposit(amountWei);
       await txDeposit.wait();
-      console.debug('[Deposit] Deposit tx confirmed, hash=', txDeposit.hash);
       setDepositAmount('');
       await loadTreasuryBalance(true);
       await loadBalances();
     } catch (e) {
-      const err = e as Record<string, unknown>;
-      console.error('[Deposit] Error:', {
-        code: err.code,
-        reason: err.reason,
-        shortMessage: err.shortMessage,
-        message: err.message,
-        full: String(e),
-      });
       if (isUserRejection(e)) {
         setDepositError(null);
       } else {
